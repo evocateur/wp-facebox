@@ -3,11 +3,11 @@
 Plugin Name: WP Facebox
 Plugin URI: http://evocateur.org/projects/wp-facebox/
 Description: Automagical Facebox for WordPress
-Version: 0.5
+Version: 1.0
 Author: Daniel Stockman
 Author URI: http://evocateur.org/
 */
-/*	Copyright 2008  Daniel Stockman  (email : daniel.stockman@gmail.com)
+/*	Copyright 2008  Daniel Stockman <daniel.stockman@gmail.com>
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
