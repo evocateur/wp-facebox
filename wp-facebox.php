@@ -3,7 +3,7 @@
 Plugin Name: WP FaceBox
 Plugin URI: http://evocateur.org/projects/wp-facebox/
 Description: Automagical Facebox for WordPress
-Version: 0.4
+Version: 0.5
 Author: Daniel Stockman
 Author URI: http://evocateur.org/
 */
@@ -21,21 +21,12 @@ function wp_facebox_header() {
 	$root = get_option('siteurl') . '/wp-content/plugins/wp-facebox';
 
 	echo <<<HTML
-<link rel="stylesheet" type="text/css" href="{$root}/facebox.css" />\n
+<link rel="stylesheet" type="text/css" href="{$root}/facebox.css" />
+<script type="text/javascript">FACEBOX_ROOT = "{$root}";</script>\n
 HTML;
 
 	wp_enqueue_script('facebox', "{$root}/facebox.js", array('jquery'), '1.2');
 
-	echo <<<HTML
-<script type="text/javascript">
-	jQuery(function($) {
-		$("a[rel*='facebox']").facebox({
-			loadingImage: {$root}/images/loading.gif,
-			closeImage: {$root}/images/closelabel.gif
-		});
-	});
-</script>\n
-HTML;
 }
 
 add_action('wp_print_scripts', 'wp_facebox_header');

@@ -16,8 +16,8 @@
     settings: {
       opacity      : 0,
       overlay      : true,
-      loadingImage : '/facebox/loading.gif',
-      closeImage   : '/facebox/closelabel.gif',
+      loadingImage : FACEBOX_ROOT + '/images/loading.gif',
+      closeImage   : FACEBOX_ROOT + '/images/closelabel.gif',
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
       faceboxHtml  : '\
     <div id="facebox" style="display:none;"> \
@@ -254,3 +254,5 @@
   });
 
 })(jQuery);
+
+jQuery(function($) { $("a[rel*='facebox'], .gallery-item a").facebox(); });
