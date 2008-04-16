@@ -3,9 +3,9 @@ Contributors: evocateur
 Tags: facebox, lightbox, media, gallery
 Requires at least: 2.5
 Tested up to: 2.5
-Stable tag: 0.5
+Stable tag: 1.0
 
-Automagically invoke Facebox on gallery images and linked images in a post.
+Automagically invoke Facebox on gallery items and linked images in a post or page.
 
 == Description ==
 
@@ -21,7 +21,7 @@ Takes [Facebox](http://famspam.com/facebox/) and wires it up for sweet WP action
 
 = A question that someone might have =
 
-An answer to that question. 42.
+An answer to that question = 42.
 
 = What about foo bar? =
 
