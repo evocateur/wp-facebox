@@ -1,4 +1,4 @@
-#facebox .b {background:url(images/b.png );}
+#facebox .b {background:url(images/b.png);min-width:10px;min-height:10px;}
 #facebox .tl{background:url(images/tl.png);}
 #facebox .tr{background:url(images/tr.png);}
 #facebox .bl{background:url(images/bl.png);}
