@@ -48,7 +48,7 @@
                 </div> \
                 <div class="footer"> \
                   <a href="#" class="close"> \
-                    <img src="/facebox/closelabel.gif" title="close" class="close_image" /> \
+                    <img src="@REPLACE_ME@" title="close" class="close_image" /> \
                   </a> \
                 </div> \
               </td> \
@@ -138,7 +138,8 @@
     $.facebox.settings.imageTypesRegexp = new RegExp('\.' + imageTypes + '$', 'i');
 
     if (settings) $.extend($.facebox.settings, settings);
-    $('body').append($.facebox.settings.faceboxHtml);
+	// modify closelabel path before appending to DOM to avoid potentially missing resource
+    $('body').append($.facebox.settings.faceboxHtml.replace(/@REPLACE_ME@/, $.facebox.settings.closeImage));
 
     var preload = [ new Image(), new Image() ];
     preload[0].src = $.facebox.settings.closeImage;
@@ -150,7 +151,6 @@
     })
 
     $('#facebox .close').click($.facebox.close);
-    $('#facebox .close_image').attr('src', $.facebox.settings.closeImage);
   }
 
   // getPageScroll() by quirksmode.com
