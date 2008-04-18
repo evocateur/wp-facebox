@@ -28,7 +28,7 @@
 
   $.extend($.facebox, {
     settings: {
-      opacity      : 0,
+      opacity      : 0.5,
       overlay      : true,
       loadingImage : FACEBOX_ROOT + '/images/loading.gif',
       closeImage   : FACEBOX_ROOT + '/images/closelabel.gif',
@@ -132,7 +132,6 @@
     else $.facebox.settings.inited = true;
 
     $(document).trigger('init.facebox');
-    makeCompatible();
 
     var imageTypes = $.facebox.settings.imageTypes.join('|');
     $.facebox.settings.imageTypesRegexp = new RegExp('\.' + imageTypes + '$', 'i');
@@ -180,16 +179,6 @@
       windowHeight = document.body.clientHeight;
     }
     return windowHeight;
-  }
-
-  // Backwards compatibility
-  function makeCompatible() {
-    var $s = $.facebox.settings;
-
-    $s.loadingImage = $s.loading_image || $s.loadingImage;
-    $s.closeImage   = $s.close_image   || $s.closeImage;
-    $s.imageTypes   = $s.image_types   || $s.imageTypes;
-    $s.faceboxHtml  = $s.facebox_html  || $s.faceboxHtml;
   }
 
   // Figures out what you want to display and displays it
