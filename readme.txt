@@ -3,7 +3,7 @@ Contributors: evocateur
 Tags: facebox, lightbox, media, gallery
 Requires at least: 2.5
 Tested up to: 2.5
-Stable tag: 1.0
+Stable tag: 1.1
 
 Automagically invoke Facebox on gallery items and linked images in a post or page.
 
@@ -19,10 +19,10 @@ Takes [Facebox](http://famspam.com/facebox/) and wires it up for sweet WP action
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= What does this plugin do, exactly? =
 
-An answer to that question = 42.
+1. For any image contained in a post that has been specified as linked to the image source (the default, e.g. a large image resized to 'medium' and linked to the larger version), add a `rel` attribute with the value `facebox`. This is accomplished as a filter on `the_content`.
 
-= What about foo bar? =
+2. *Any* linked content inside a shortcode gallery will demonstrate identical behaviour to those linked images in posts; viz., when clicked they will giggle and squee in delight, emitting sunshine and rainbow glitter.
 
-Answer to foo bar dilemma. It's a toughie.
+Or, you know, a Facebook-style lightbox appears with the linked content.
