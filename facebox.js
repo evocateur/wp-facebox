@@ -28,10 +28,10 @@
 
   $.extend($.facebox, {
     settings: {
-      opacity      : 0.5,
+      opacity      : 0,
       overlay      : true,
-      loadingImage : FACEBOX_ROOT + '/images/loading.gif',
-      closeImage   : FACEBOX_ROOT + '/images/closelabel.gif',
+      loadingImage : '/facebox/images/loading.gif',
+      closeImage   : '/facebox/images/closelabel.gif',
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
       faceboxHtml  : '\
     <div id="facebox" style="display:none;"> \
@@ -257,5 +257,3 @@
   });
 
 })(jQuery);
-
-jQuery(function($) { $("a[rel*='facebox'], .gallery-item a").facebox(); });
