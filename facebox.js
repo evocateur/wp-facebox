@@ -91,6 +91,8 @@
       $('#facebox .loading').remove();
       $('#facebox .body').children().fadeIn('normal');
       $('#facebox').css('left', $(window).width() / 2 - ($('#facebox table').width() / 2));
+      var top_delta = (($(window).height() / 2) - ($('#facebox table').height() / 2)) + getPageScroll()[1];
+      $('#facebox').css('top', (top_delta < 0) ? 0 : top_delta);
       $(document).trigger('reveal.facebox').trigger('afterReveal.facebox');
     },
 
