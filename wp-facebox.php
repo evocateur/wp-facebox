@@ -37,6 +37,7 @@ class WP_Facebox {
 <link rel="stylesheet" type="text/css" href="{$this->root}/facebox.css" />
 <script type="text/javascript">/* wp-facebox */
 	WPFB = { root: "{$this->root}", home: "{$this->home}", site: "{$this->site}" };
+	WPFB.options = { loadingImage: WPFB.root + '/images/loading.gif', closeImage: WPFB.root + '/images/closelabel.gif', opacity: 0.5 };
 </script>\n
 HTML;
 	}
@@ -47,7 +48,7 @@ HTML;
 		if ( $this->opts['do_gallery'] ) $selectors[] = ".gallery-item a";
 		$selectors = implode(', ', $selectors);
 		if ( !empty($selectors) )
-			echo "<script type=\"text/javascript\">if (jQuery && jQuery.facebox) jQuery(function($) { $(\"$selectors\").facebox({ loadingImage: WPFB.root + '/images/loading.gif', closeImage: WPFB.root + '/images/closelabel.gif', opacity: 0.5 }); });</script>\n";
+			echo "<script type=\"text/javascript\">if (jQuery && jQuery.facebox) jQuery(function($) { $(\"$selectors\").facebox(WPFB.options); });</script>\n";
 	}
 
 	function rel_replace( $content ) {
