@@ -39,7 +39,6 @@ class WP_Facebox {
 	WPFB = { root: "{$this->root}", home: "{$this->home}", site: "{$this->site}" };
 </script>\n
 HTML;
-		wp_enqueue_script( 'facebox' );
 	}
 
 	function invoke_header() {
@@ -62,11 +61,18 @@ HTML;
 		Init / Constructor
 	*/
 	function init() {
+		$this->home = get_option('home');
+		$this->site = get_option('siteurl');
+		$this->root = $this->site . '/wp-content/plugins/wp-facebox';
+
+		wp_register_script( 'facebox', "{$this->root}/facebox.js", array('jquery'), '1.2' );
+
 		if ( $this->opts['loadscript'] ) {
-			wp_register_script( 'facebox', "{$this->root}/facebox.js", array('jquery'), '1.2' );
+			wp_enqueue_script( 'facebox' );
 			add_action( 'wp_print_scripts', array(&$this, 'header') );
 			add_action( 'wp_head',   array(&$this, 'invoke_header') );
 		}
+
 		if ( $this->opts['autofilter'] ) {
 			add_filter( 'the_content', array(&$this, 'rel_replace') );
 		}
@@ -79,19 +85,11 @@ HTML;
 			'do_gallery' => 1,
 			'loadscript' => 1
 		);
-		$this->home = get_option('home');
-		$this->site = get_option('siteurl');
-		$this->root = $this->site . '/wp-content/plugins/wp-facebox';
 		$this->init();
 	}
 }
 
 // make those julienne fries, baby
-function wp_facebox_bootstrap() {
-	global $wp_facebox;
-	$wp_facebox = new WP_Facebox();
-}
-
-add_action( 'plugins_loaded', 'wp_facebox_bootstrap' );
+$wp_facebox = new WP_Facebox();
 
 ?>
