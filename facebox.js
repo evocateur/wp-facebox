@@ -16,9 +16,9 @@
   $.facebox = function(data, klass) {
     $.facebox.loading();
 
-    if (data.ajax) fillFaceboxFromAjax(data.ajax);
-    else if (data.image) fillFaceboxFromImage(data.image);
-    else if (data.div) fillFaceboxFromHref(data.div)
+    if (data.ajax) fillFaceboxFromAjax(data.ajax, klass);
+    else if (data.image) fillFaceboxFromImage(data.image, klass);
+    else if (data.div) fillFaceboxFromHref(data.div, klass)
     else if ($.isFunction(data)) data.call($);
     else $.facebox.reveal(data, klass);
   };
