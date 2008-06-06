@@ -3,7 +3,7 @@
 Plugin Name: WP Facebox
 Plugin URI: http://evocateur.org/projects/wp-facebox/
 Description: Automagical Facebox for WordPress
-Version: 1.1
+Version: 1.2
 Author: Daniel Stockman
 Author URI: http://evocateur.org/
 */
@@ -19,28 +19,79 @@ Author URI: http://evocateur.org/
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 */
+/**
+* WP Facebox
+* 	julienne fries!
+*/
+class WP_Facebox {
+	var $opts;
+	var $site;
+	var $home;
+	var $root; // plugin root dir
 
-function wp_facebox_rel_replace( $content ) {
-	$pattern = "/<a(.*?)href=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>(.*?)<\/a>/i";
-	$replacement = '<a$1href=$2$3.$4$5 rel="facebox"$6>$7</a>';
-	$content = preg_replace($pattern, $replacement, $content);
-	return $content;
-}
-
-add_filter( 'the_content', 'wp_facebox_rel_replace' );
-
-function wp_facebox_header() {
-	$root = get_option( 'siteurl' ) . '/wp-content/plugins/wp-facebox';
-
-	echo <<<HTML
-<link rel="stylesheet" type="text/css" href="{$root}/facebox.css" />
-<script type="text/javascript">FACEBOX_ROOT = "{$root}";</script>\n
+	/*
+		Utilities
+	*/
+	function header() {
+		echo <<<HTML
+	<link rel="stylesheet" type="text/css" href="{$this->root}/facebox.css" />
+	<script type="text/javascript">	/* wp-facebox init */
+	WPFB = { root: "{$this->root}", home: "{$this->home}", site: "{$this->site}" };
+	WPFB.opts = { loadingImage: WPFB.root + '/images/loading.gif', closeImage: WPFB.root + '/images/closelabel.gif', opacity: 0.5 };
+	</script>\n
 HTML;
+		wp_enqueue_script( 'facebox', "{$this->root}/facebox.js", array('jquery'), '1.2' );
+	}
 
-	wp_enqueue_script( 'facebox', "{$root}/facebox.js", array('jquery'), '1.2' );
+	function invoke_header() {
+		$selectors = array();
+		if ( $this->opts['do_default'] ) $selectors[] = "a[rel*='facebox']";
+		if ( $this->opts['do_gallery'] ) $selectors[] = ".gallery-item a";
+		$selectors = implode(', ', $selectors);
+		if ( !empty($selectors) )
+			echo "<script type=\"text/javascript\">if (jQuery && jQuery.facebox) jQuery(function($) { $(\"$selectors\").facebox(WPFB.opts); });</script>\n";
+	}
 
+	function rel_replace( $content ) {
+		$pattern = "/<a(.*?)href=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>(.*?)<\/a>/i";
+		$replacement = '<a$1href=$2$3.$4$5 rel="facebox"$6>$7</a>';
+		$content = preg_replace($pattern, $replacement, $content);
+		return $content;
+	}
+
+	/*
+		Init / Constructor
+	*/
+	function init() {
+		if ( $this->opts['loadscript'] ) {
+			add_action( 'wp_print_scripts', array(&$this, 'header') );
+			add_action( 'wp_head',   array(&$this, 'invoke_header') );
+		}
+		if ( $this->opts['autofilter'] ) {
+			add_filter( 'the_content', array(&$this, 'rel_replace') );
+		}
+	}
+
+	function WP_Facebox() {	// constructor
+		$this->opts = array(
+			'autofilter' => 1,
+			'do_default' => 1,
+			'do_gallery' => 0,
+			'loadscript' => 1
+		);
+		$this->home = get_option('home');
+		$this->site = get_option('siteurl');
+		$this->root = $this->site . '/wp-content/plugins/wp-facebox';
+		$this->init();
+	}
 }
 
-add_action( 'wp_print_scripts', 'wp_facebox_header' );
+// make those julienne fries, baby
+function wp_facebox_bootstrap() {
+	global $wp_facebox;
+	$wp_facebox = new WP_Facebox();
+}
+
+add_action( 'plugins_loaded', 'wp_facebox_bootstrap' );
 
 ?>
