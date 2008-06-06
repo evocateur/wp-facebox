@@ -74,9 +74,9 @@ HTML;
 
 	function WP_Facebox() {	// constructor
 		$this->opts = array(
-			'autofilter' => 1,
+			'autofilter' => 0,
 			'do_default' => 1,
-			'do_gallery' => 0,
+			'do_gallery' => 1,
 			'loadscript' => 1
 		);
 		$this->home = get_option('home');
