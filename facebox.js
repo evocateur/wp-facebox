@@ -1,6 +1,6 @@
 /*
  * Facebox (for jQuery)
- * version: 1.2b (04/10/2008)
+ * version: 1.2 (05/05/2008)
  * @requires jQuery v1.2.3 or later
  *
  * Examples at http://famspam.com/facebox/
@@ -74,8 +74,8 @@
         append('<div class="loading"><img src="'+$.facebox.settings.loadingImage+'"/></div>');
 
       $('#facebox').css({
-        top:	getPageScroll()[1] + (getPageHeight() / 10),
-        left:	385.5
+        top:   getPageScroll()[1] + (getPageHeight() / 10),
+        left:  $(window).width() / 2 - 205
       }).show();
 
       $(document).bind('keydown.facebox', function(e) {
