@@ -35,9 +35,8 @@ class WP_Facebox {
 	function header() {
 		echo <<<HTML
 	<link rel="stylesheet" type="text/css" href="{$this->root}/facebox.css" />
-	<script type="text/javascript">	/* wp-facebox init */
+	<script type="text/javascript">/* wp-facebox */
 	WPFB = { root: "{$this->root}", home: "{$this->home}", site: "{$this->site}" };
-	WPFB.opts = { loadingImage: WPFB.root + '/images/loading.gif', closeImage: WPFB.root + '/images/closelabel.gif', opacity: 0.5 };
 	</script>\n
 HTML;
 		wp_enqueue_script( 'facebox', "{$this->root}/facebox.js", array('jquery'), '1.2' );
@@ -49,7 +48,7 @@ HTML;
 		if ( $this->opts['do_gallery'] ) $selectors[] = ".gallery-item a";
 		$selectors = implode(', ', $selectors);
 		if ( !empty($selectors) )
-			echo "<script type=\"text/javascript\">if (jQuery && jQuery.facebox) jQuery(function($) { $(\"$selectors\").facebox(WPFB.opts); });</script>\n";
+			echo "<script type=\"text/javascript\">if (jQuery && jQuery.facebox) jQuery(function($) { $(\"$selectors\").facebox({ loadingImage: WPFB.root + '/images/loading.gif', closeImage: WPFB.root + '/images/closelabel.gif', opacity: 0.5 }); });</script>\n";
 	}
 
 	function rel_replace( $content ) {
