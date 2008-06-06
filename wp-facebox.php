@@ -34,12 +34,12 @@ class WP_Facebox {
 	*/
 	function header() {
 		echo <<<HTML
-	<link rel="stylesheet" type="text/css" href="{$this->root}/facebox.css" />
-	<script type="text/javascript">/* wp-facebox */
+<link rel="stylesheet" type="text/css" href="{$this->root}/facebox.css" />
+<script type="text/javascript">/* wp-facebox */
 	WPFB = { root: "{$this->root}", home: "{$this->home}", site: "{$this->site}" };
-	</script>\n
+</script>\n
 HTML;
-		wp_enqueue_script( 'facebox', "{$this->root}/facebox.js", array('jquery'), '1.2' );
+		wp_enqueue_script( 'facebox' );
 	}
 
 	function invoke_header() {
@@ -63,6 +63,7 @@ HTML;
 	*/
 	function init() {
 		if ( $this->opts['loadscript'] ) {
+			wp_register_script( 'facebox', "{$this->root}/facebox.js", array('jquery'), '1.2' );
 			add_action( 'wp_print_scripts', array(&$this, 'header') );
 			add_action( 'wp_head',   array(&$this, 'invoke_header') );
 		}
