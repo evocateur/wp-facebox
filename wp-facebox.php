@@ -3,7 +3,7 @@
 Plugin Name: WP Facebox
 Plugin URI: http://evocateur.org/projects/wp-facebox/
 Description: Automagical Facebox for WordPress
-Version: 1.2
+Version: 1.2.1
 Author: Daniel Stockman
 Author URI: http://evocateur.org/
 */
@@ -58,6 +58,14 @@ HTML;
 		return $content;
 	}
 
+	function filter_gallery_link( $link, $id ) {
+		// By default, the gallery shortcode creates permalinks to the attachment
+		// Facebox, however, expects a direct link to the resource
+		// wp_get_attachment_url does this for us
+		// I <3 filters
+		return wp_get_attachment_url( $id );
+	}
+
 	/*
 		Init / Constructor
 	*/
@@ -72,6 +80,8 @@ HTML;
 			wp_enqueue_script( 'facebox' );
 			add_action( 'wp_print_scripts', array(&$this, 'header') );
 			add_action( 'wp_head',   array(&$this, 'invoke_header') );
+			// turn gallery permalinks into direct links
+			add_filter( 'attachment_link', array(&$this, 'filter_gallery_link'), 11, 2 );
 		}
 
 		if ( $this->opts['autofilter'] ) {
@@ -80,12 +90,15 @@ HTML;
 	}
 
 	function WP_Facebox() {	// constructor
+		// TODO: implement admin options interface for these values
+		// For the time being, turn off options by replacing 1 with 0
 		$this->opts = array(
-			'autofilter' => 0,
+			'autofilter' => 1,
 			'do_default' => 1,
 			'do_gallery' => 1,
 			'loadscript' => 1
 		);
+		// don't disable 'loadscript', unless you're only after the header output
 		$this->init();
 	}
 }
