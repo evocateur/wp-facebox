@@ -18,7 +18,7 @@
 
     if (data.ajax) fillFaceboxFromAjax(data.ajax, klass);
     else if (data.image) fillFaceboxFromImage(data.image, klass);
-    else if (data.div) fillFaceboxFromHref(data.div, klass)
+    else if (data.div) fillFaceboxFromHref(data.div, klass);
     else if ($.isFunction(data)) data.call($);
     else $.facebox.reveal(data, klass);
   };
@@ -81,7 +81,7 @@
       $(document).bind('keydown.facebox', function(e) {
         if (e.keyCode == 27) $.facebox.close();
         return true;
-      })
+      });
       $(document).trigger('loading.facebox');
     },
 
@@ -137,7 +137,7 @@
     $(document).trigger('init.facebox');
 
     var imageTypes = $.facebox.settings.imageTypes.join('|');
-    $.facebox.settings.imageTypesRegexp = new RegExp('\.' + imageTypes + '$', 'i');
+    $.facebox.settings.imageTypesRegexp = new RegExp('\.(' + imageTypes + ')$', 'i');
 
     if (settings) $.extend($.facebox.settings, settings);
 	// modify closelabel path before appending to DOM to avoid potentially missing resource
@@ -150,7 +150,7 @@
     $('#facebox').find('.b:first, .bl, .br, .tl, .tr').each(function() {
       preload.push(new Image());
       preload.slice(-1).src = $(this).css('background-image').replace(/url\((.+)\)/, '$1');
-    })
+    });
 
     $('#facebox .close').click($.facebox.close);
   }
@@ -209,12 +209,12 @@
     var image = new Image();
     image.onload = function() {
       $.facebox.reveal('<div class="image"><img src="' + image.src + '" /></div>', klass);
-    }
+    };
     image.src = href;
   }
 
   function fillFaceboxFromAjax(href, klass) {
-    $.get(href, function(data) { $.facebox.reveal(data, klass) });
+    $.get(href, function(data) { $.facebox.reveal(data, klass); });
   }
 
   function skipOverlay() {
@@ -229,7 +229,7 @@
 
     $('#facebox_overlay').hide().addClass("facebox_overlayBG")
       .css('opacity', $.facebox.settings.opacity)
-      .click(function() { $(document).trigger('close.facebox') })
+      .click(function() { $(document).trigger('close.facebox'); })
       .fadeIn(200);
     return false;
   }
@@ -241,7 +241,7 @@
       $("#facebox_overlay").removeClass("facebox_overlayBG");
       $("#facebox_overlay").addClass("facebox_hide");
       $("#facebox_overlay").remove();
-    })
+    });
 
     return false;
   }
