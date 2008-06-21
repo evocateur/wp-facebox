@@ -3,7 +3,7 @@ Contributors: evocateur
 Tags: facebox, lightbox, media, gallery
 Requires at least: 2.5.1
 Tested up to: 2.5.1
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 
 Automagically invoke Facebox on gallery items and linked images in a post or page.
 

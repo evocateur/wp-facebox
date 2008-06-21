@@ -3,7 +3,7 @@
 Plugin Name: WP Facebox
 Plugin URI: http://evocateur.org/projects/wp-facebox/
 Description: Automagical Facebox for WordPress
-Version: 1.2.1
+Version: 1.2.2
 Author: Daniel Stockman
 Author URI: http://evocateur.org/
 */
