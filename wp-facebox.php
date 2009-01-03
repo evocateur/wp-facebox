@@ -19,6 +19,17 @@ Author URI: http://evocateur.org/
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 */
+
+// Pre-2.6 compatibility
+if ( ! defined( 'WP_CONTENT_URL' ) )
+	define( 'WP_CONTENT_URL', get_option( 'siteurl' ) . '/wp-content' );
+if ( ! defined( 'WP_CONTENT_DIR' ) )
+	define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
+if ( ! defined( 'WP_PLUGIN_URL' ) )
+	define( 'WP_PLUGIN_URL', WP_CONTENT_URL. '/plugins' );
+if ( ! defined( 'WP_PLUGIN_DIR' ) )
+	define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );
+
 /**
 * WP Facebox
 * 	julienne fries!
@@ -72,7 +83,7 @@ HTML;
 	function init() {
 		$this->home = get_option('home');
 		$this->site = get_option('siteurl');
-		$this->root = $this->site . '/wp-content/plugins/wp-facebox';
+		$this->root = WP_PLUGIN_URL . '/' . basename(dirname(__FILE__));
 
 		wp_register_script( 'facebox', "{$this->root}/facebox.js", array('jquery'), '1.2' );
 
